@@ -1,0 +1,6 @@
+# Excluir foto original de 11MB não utilizada no HTML
+assets/20260601_111354.jpg
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
