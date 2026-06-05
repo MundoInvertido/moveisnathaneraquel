@@ -592,6 +592,50 @@
       box-shadow: 0 4px 10px rgba(166, 136, 99, 0.15);
     }
     
+    /* Estilos para Itens Vendidos */
+    .card.sold {
+      opacity: 0.72;
+    }
+    
+    .card.sold .card-img-wrap img {
+      filter: grayscale(45%) contrast(90%);
+    }
+    
+    .card-tag-sold {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background-color: var(--danger);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      z-index: 5;
+    }
+    
+    .btn-sold-disabled {
+      width: 100%;
+      padding: 10px 16px;
+      background-color: #f2efe9;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    
     /* Elegant Drawer / Sidebar for Sacola */
     .sacola-overlay {
       position: fixed;
@@ -1044,6 +1088,25 @@
       color: #fff;
       border-color: var(--primary-hover);
       font-weight: 700;
+    }
+    
+    .btn-modal-sold {
+      width: 100%;
+      padding: 12px;
+      background-color: #f2efe9;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     
     /* Empty State for Grid */
@@ -1642,7 +1705,7 @@
           </div>
           <div class="modal-spec-item">
             <span class="modal-spec-label">Disponibilidade:</span>
-            <span class="modal-spec-val" style="color:var(--success);">Pronta Entrega (1 unidade)</span>
+            <span class="modal-spec-val" id="modal-availability" style="color:var(--success);">Pronta Entrega (1 unidade)</span>
           </div>
           <div class="modal-spec-item">
             <span class="modal-spec-label">Local de Retirada:</span>
@@ -1657,6 +1720,9 @@
         </div>
         
         <div class="modal-actions">
+          <button class="btn-modal-sold" id="btn-modal-sold-badge" style="display:none;" disabled>
+            ❌ Item Vendido / Indisponível
+          </button>
           <a href="#" class="btn-modal-buy" id="btn-modal-wa-link" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
@@ -1706,7 +1772,8 @@
           precoVenda: 200,
           obs: "",
           img: "https://http2.mlstatic.com/D_NQ_NP_2X_614342-MLA84555409466_052025-F.webp",
-          cat: "eletros"
+          cat: "eletros",
+          vendido: true
         },
         {
           id: 4,
@@ -1734,7 +1801,8 @@
           obs: "",
           img: "https://http2.mlstatic.com/D_NQ_NP_2X_829691-MLB89586197869_082025-F-refrigerador-geladeira-electrolux-dfx44-frost-free-400l-ef.webp",
           cat: "eletros",
-          destaque: true
+          destaque: true,
+          vendido: true
         },
         {
           id: 7,
@@ -1752,7 +1820,8 @@
           precoVenda: 700,
           obs: "",
           img: "https://i.zst.com.br/thumbs/12/9/17/189216058.jpg",
-          cat: "eletros"
+          cat: "eletros",
+          vendido: true
         },
         {
           id: 9,
@@ -1789,7 +1858,8 @@
           precoVenda: 50,
           obs: "",
           img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH-K5IukO7xK_uLLs8fYZYwdGy9jDdckSPEQ&s",
-          cat: "moveis"
+          cat: "moveis",
+          vendido: true
         },
         {
           id: 13,
@@ -1799,7 +1869,8 @@
           obs: "",
           img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTfsTB5BpI0RK7_1fqy_W18JNl3SNX52ighTt5-p6wurePk-xMcLGrw-OQwjjxC8qYIqNDvoNjgKyCwx3UoxRulatyrivJG_5n3c-mnXNjZ6V2ZjyeyK50UGrY",
           cat: "moveis",
-          destaque: true
+          destaque: true,
+          vendido: true
         },
         {
           id: 14,
@@ -1808,7 +1879,8 @@
           precoVenda: 700,
           obs: "Pouco tempo de uso",
           img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSgOTWWRFQt39RJVLkKG-XzuuUQtsKTsQ5p98NDYgz3Bs7QwqD8J5AinJZHrfV8IEFC2u1Tq4I4X8Zta15FSdbTR7tPeb_HHUAryRg9gtrwf0Wijq3dUMWw",
-          cat: "eletros"
+          cat: "eletros",
+          vendido: true
         },
         {
           id: 15,
@@ -1826,7 +1898,8 @@
           precoVenda: 80,
           obs: "Pouco tempo de uso",
           img: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTySopYX0DW_62JW3afMBYUjTduwvLd7ucJ3L6SpZtIdTuMp227-Fyy14BhhyEVF-oDC2wC0R9JUPc7oIKNn0bz2IbUz_RzJ2gZ-dssSBzJQ5ZvoZlJiUjZ8Q",
-          cat: "eletros"
+          cat: "eletros",
+          vendido: true
         },
         {
           id: 17,
@@ -1844,7 +1917,8 @@
           precoVenda: 340,
           obs: "Pouco tempo de uso",
           img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSWzuSZvxZEg-yiiUDctE6ubrQSCYQfv0VqtVXZB0v8VfJYj2LrVcOGS6t26BclZcesJ_Y9SpNIHeSdbdq52s12uE5EFE4Xxrc_3Lj1r45b",
-          cat: "moveis"
+          cat: "moveis",
+          vendido: true
         },
         {
           id: 19,
@@ -1907,7 +1981,8 @@
           precoVenda: 1000,
           obs: "",
           img: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ_EKj1-Q3tyQn5FMRErXAhedpsoODoJ2FapmLimdacBd1cnN-AElWFh0PhiHSbrYQwsAErUv4b5gxyvYir29vImy61v0oYrU80K1qohsm_H4k7u9VASD0WCg",
-          cat: "eletros"
+          cat: "eletros",
+          vendido: true
         }
       ];
 
@@ -1993,7 +2068,7 @@
             const discount = getDiscountPercentage(p.precoOriginal, p.precoVenda);
             const inBag = sacola.includes(p.id);
             const card = document.createElement('article');
-            card.className = 'card';
+            card.className = `card ${p.vendido ? 'sold' : ''}`;
             card.id = `card-prod-${p.id}`;
 
             const catLabels = { eletros: 'Eletro', moveis: 'Móvel', outros: 'Outros' };
@@ -2005,7 +2080,7 @@
               <div class="card-img-wrap" onclick="openProductModal(${p.id})">
                 <img src="${p.img}" alt="${p.nome}" loading="lazy" class="card-img" onerror="this.src='https://placehold.co/400x300/faf8f5/1d1b18?text=Imagem+Indisponível'" />
                 <div class="card-badge">${catLabels[p.cat]}</div>
-                ${p.destaque ? '<div class="card-tag-destaque">🔥 Destaque</div>' : ''}
+                ${p.vendido ? '<div class="card-tag-sold">❌ Vendido</div>' : (p.destaque ? '<div class="card-tag-destaque">🔥 Destaque</div>' : '')}
                 ${p.obs ? `<div class="card-obs-badge">⚠️ ${p.obs}</div>` : ''}
               </div>
               <div class="card-body">
@@ -2016,19 +2091,25 @@
                   <span class="card-discount">-${discount}%</span>
                 </div>
                 <div class="card-actions">
-                  <a href="${waLink}" class="btn-buy-card" id="buy-prod-${p.id}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-                    <svg width="14" height="14" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                    </svg>
-                    Comprar
-                  </a>
-                  <button class="btn-bag-toggle ${inBag ? 'in-bag' : ''}" onclick="toggleSacola(event, ${p.id})" aria-label="Adicionar à sacola">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                      <line x1="3" y1="6" x2="21" y2="6"></line>
-                      <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                  </button>
+                  ${p.vendido ? `
+                    <button class="btn-sold-disabled" disabled>
+                      ❌ Vendido / Indisponível
+                    </button>
+                  ` : `
+                    <a href="${waLink}" class="btn-buy-card" id="buy-prod-${p.id}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                      <svg width="14" height="14" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                      </svg>
+                      Comprar
+                    </a>
+                    <button class="btn-bag-toggle ${inBag ? 'in-bag' : ''}" onclick="toggleSacola(event, ${p.id})" aria-label="Adicionar à sacola">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                      </svg>
+                    </button>
+                  `}
                 </div>
               </div>
             `;
@@ -2037,7 +2118,7 @@
         }
 
         if (totalItemsCount) {
-          totalItemsCount.textContent = filtered.length;
+          totalItemsCount.textContent = filtered.filter(p => !p.vendido).length;
         }
 
         updateSacolaUI();
@@ -2125,7 +2206,7 @@
         } else {
           sacola.forEach(id => {
             const p = produtos.find(item => item.id === id);
-            if (p) {
+            if (p && !p.vendido) {
               total += p.precoVenda;
               const itemRow = document.createElement('div');
               itemRow.className = 'sacola-item';
@@ -2161,7 +2242,7 @@
         
         sacola.forEach((id, index) => {
           const p = produtos.find(item => item.id === id);
-          if (p) {
+          if (p && !p.vendido) {
             message += `${index + 1}. *${p.nome}* - ${formatPrice(p.precoVenda)}\n`;
             total += p.precoVenda;
           }
@@ -2186,7 +2267,9 @@
         const catLabels = { eletros: '🔌 Eletrodoméstico', moveis: '🪑 Móvel / Mobília', outros: '🎸 Outros Utilidades' };
         modalCategory.textContent = catLabels[p.cat];
 
-        if (p.destaque) {
+        if (p.vendido) {
+          modalDestaque.style.display = 'none';
+        } else if (p.destaque) {
           modalDestaque.style.display = 'inline-block';
         } else {
           modalDestaque.style.display = 'none';
@@ -2209,6 +2292,27 @@
         btnModalWaLink.href = `https://wa.me/5583999604136?text=${messageText}`;
 
         updateModalBagState();
+
+        // Sold status UI adjustments inside the modal
+        const availabilityEl = document.getElementById('modal-availability');
+        const soldBadgeEl = document.getElementById('btn-modal-sold-badge');
+        if (p.vendido) {
+          if (soldBadgeEl) soldBadgeEl.style.display = 'flex';
+          btnModalWaLink.style.display = 'none';
+          btnModalBagToggle.style.display = 'none';
+          if (availabilityEl) {
+            availabilityEl.textContent = "Indisponível (Vendido)";
+            availabilityEl.style.color = "var(--danger)";
+          }
+        } else {
+          if (soldBadgeEl) soldBadgeEl.style.display = 'none';
+          btnModalWaLink.style.display = 'flex';
+          btnModalBagToggle.style.display = 'flex';
+          if (availabilityEl) {
+            availabilityEl.textContent = "Pronta Entrega (1 unidade)";
+            availabilityEl.style.color = "var(--success)";
+          }
+        }
 
         productModal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Lock background scrolling
