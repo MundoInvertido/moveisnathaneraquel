@@ -2133,17 +2133,29 @@
       // Sort products
       function sortProducts() {
         if (currentSort === 'price-asc') {
-          activeProducts.sort((a, b) => a.precoVenda - b.precoVenda);
+          activeProducts.sort((a, b) => {
+            if (a.vendido && !b.vendido) return 1;
+            if (!a.vendido && b.vendido) return -1;
+            return a.precoVenda - b.precoVenda;
+          });
         } else if (currentSort === 'price-desc') {
-          activeProducts.sort((a, b) => b.precoVenda - a.precoVenda);
+          activeProducts.sort((a, b) => {
+            if (a.vendido && !b.vendido) return 1;
+            if (!a.vendido && b.vendido) return -1;
+            return b.precoVenda - a.precoVenda;
+          });
         } else if (currentSort === 'discount-desc') {
           activeProducts.sort((a, b) => {
+            if (a.vendido && !b.vendido) return 1;
+            if (!a.vendido && b.vendido) return -1;
             const discA = getDiscountPercentage(a.precoOriginal, a.precoVenda);
             const discB = getDiscountPercentage(b.precoOriginal, b.precoVenda);
             return discB - discA;
           });
         } else {
           activeProducts.sort((a, b) => {
+            if (a.vendido && !b.vendido) return 1;
+            if (!a.vendido && b.vendido) return -1;
             if (a.destaque && !b.destaque) return -1;
             if (!a.destaque && b.destaque) return 1;
             return a.id - b.id;
